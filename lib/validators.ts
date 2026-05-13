@@ -1,0 +1,155 @@
+import { z } from "zod"
+import { formatNumberWithDecimal } from "./utils"
+import { PAYMENT_METHODS } from "./constants"
+
+const currency = z
+  .string()
+  .refine(
+    (value) => /^\d+(\.\d{2})/.test(formatNumberWithDecimal(Number(value))),
+    "Cena musí mít dvě desetinná místa."
+  )
+
+// Schema for inserting products
+export const insertProductSchema = z.object({
+  name: z.string().min(3, "Jméno musí mít více než 3 znaky."),
+  slug: z.string().min(3, "Slug musí mít více než 3 znaky."),
+  sort: z.string().min(3, "Odrůda musí mít více než 3 znaky."),
+  year: z.string().min(4, "Rok musí mít 4 číslice."),
+  attribute: z.string(),
+  sweetCat: z.string().min(3, "Sladkost musí mít více než 3 znaky."),
+  category: z.string().min(3, "Kategorie musí mít více než 3 znaky."),
+  brand: z.string().min(3, "Značka musí mít více než 3 znaky."),
+  description: z.string().min(3, "Popis musí mít více než 3 znaky."),
+  price: currency,
+  stock: z.coerce.number().min(0),
+  alcohol: z.coerce.number(),
+  sugar: z.coerce.number(),
+  acid: z.coerce.number(),
+  images: z.array(z.string()).min(1, "Musíte vložit alespoň jednu fotku."),
+  isFeatured: z.boolean(),
+  banner: z.string().nullable(),
+})
+
+// Schema for signing users in
+export const signInFormSchema = z.object({
+  email: z.string().email("Musí být e-mailová adresa."),
+  password: z.string().min(6, "Heslo musí mít více než 6 znaků."),
+})
+
+// Schema for signing users up
+export const signUpFormSchema = z
+  .object({
+    name: z.string().min(3, "Jméno musí mít více než 3 znaky."),
+    email: z.string().email("Musí být e-mailová adresa."),
+    password: z.string().min(6, "Heslo musí mít více než 6 znaků."),
+    confirmPassword: z.string().min(6, "Heslo musí mít více než 6 znaků."),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Hesla se neshodují.",
+    path: ["confirmPassword"],
+  })
+
+// Cart schema
+export const cartItemSchema = z.object({
+  productId: z.string().min(1, "Produkt je vyžadován."),
+  name: z.string().min(1, "Jméno je vyžadováno."),
+  slug: z.string().min(1, "Slug je vyžadován."),
+  qty: z.number().int().nonnegative("Množství musí být kladné číslo."),
+  image: z.string().min(1, "Obrázek je vyžadován."),
+  price: currency,
+})
+
+export const insertCartSchema = z.object({
+  items: z.array(cartItemSchema),
+  itemsPrice: currency,
+  totalPrice: currency,
+  shippingPrice: currency,
+  taxPrice: currency,
+  sessionCartId: z.string().min(1, "Session ID je vyžadováno."),
+  userId: z.string().optional().nullable(),
+})
+
+// Schema for shipping address
+export const shippingAddressSchema = z.object({
+  fullName: z.string().min(3, "Jméno musí mít více než 3 znaky."),
+  streetAddress: z.string().min(3, "Adresa musí mít více než 3 znaky."),
+  city: z.string().min(2, "Město musí mít více než 2 znaky."),
+  postalCode: z.string().length(5, "PSČ musí mít 5 znaků."),
+  country: z.string().min(3, "Země musí mít více než 3 znaky."),
+  lat: z.number().optional(),
+  lng: z.number().optional(),
+  phone: z.string().min(9, "Telefon musí mít minimálně 9 znaků."),
+})
+
+// Schema for payment method
+export const paymentMethodSchema = z
+  .object({
+    type: z.string().min(1, "Způsob platby je vyžadován."),
+  })
+  .refine((data) => PAYMENT_METHODS.includes(data.type), {
+    path: ["type"],
+    message: `Způsob platby musí být jeden z následujících: ${PAYMENT_METHODS.join(
+      ", "
+    )}`,
+  })
+
+// Schema for inserting order
+export const insertOrderSchema = z.object({
+  userId: z.string().min(1, "Uživatel je vyžadován."),
+  shippingAddress: shippingAddressSchema,
+  itemsPrice: currency,
+  shippingPrice: currency,
+  taxPrice: currency,
+  totalPrice: currency,
+  paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+    message: "Neplatný způsob platby.",
+  }),
+})
+
+// Schema for updating products
+export const updateProductSchema = insertProductSchema.extend({
+  id: z.string().min(1, "Id je vyžadováno pro aktualizaci produktu."),
+})
+
+// Schema for inserting an order item
+export const insertOrderItemSchema = z.object({
+  productId: z.string(),
+  slug: z.string(),
+  image: z.string(),
+  name: z.string(),
+  price: currency,
+  qty: z.number(),
+})
+
+// Schema for the PayPal paymentResult
+export const paymentResultSchema = z.object({
+  id: z.string(),
+  status: z.string(),
+  email_address: z.string(),
+  pricePaid: z.string(),
+})
+
+// Schema for updating the user profile
+export const updateProfileSchema = z.object({
+  name: z.string().min(3, "Jméno musí mít více než 3 znaky."),
+  email: z.string().min(3, "E-mail musí mít více než 3 znaky."),
+})
+
+// Schema to update users
+export const updateUserSchema = updateProfileSchema.extend({
+  id: z.string().min(1, "ID je vyžadováno pro aktualizaci uživatele."),
+  role: z.string().min(1, "Role je vyžadována."),
+})
+
+// Schema to insert reviews
+export const insertReviewSchema = z.object({
+  title: z.string().min(3, "Název musí mít alespoň 3 znaky."),
+  description: z.string().min(3, "Popis musí mít alespoň 3 znaky."),
+  productId: z.string().min(1, "Produkt je vyžadován."),
+  userId: z.string().min(1, "Uživatel je vyžadován."),
+  rating: z.coerce
+    .number()
+    .int()
+    .min(1, "Hodnocení musí být alespoň 1")
+    .max(5, "Rating must be at most 5"),
+})
