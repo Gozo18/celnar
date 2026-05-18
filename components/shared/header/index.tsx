@@ -16,11 +16,11 @@ const Header = async () => {
             <Image
               src="/images/logo_only.png"
               alt={`${APP_NAME} logo`}
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               priority={true}
             />
-            <span className="hidden lg:block font-bold font-cairo text-xl ml-3">
+            <span className="hidden lg:block font-arizonia text-3xl ml-3">
               {APP_NAME}
             </span>
           </Link>

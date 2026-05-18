@@ -20,10 +20,8 @@ const Homepage = async () => {
         <ProductCarousel data={featuredProducts} />
       )}
       <h1 className="mt-4 md:mt-10 text-center">
-        <span className="font-bold font-cairo text-xl lg:text-2xl">
-          {APP_NAME}
-        </span>{" "}
-        - rodinné vinařství z Pavlova
+        <span className="font-arizonia text-3xl">{APP_NAME}</span> - rodinné
+        vinařství z Vranovic
       </h1>
       <HomepageLinks />
       <ProductList

@@ -21,9 +21,9 @@ const ObchodniPodminkyPage = () => {
         </p>
         <p>
           Provozovatelem e-shopu a prodávajícím je společnost {APP_NAME} s.r.o.,
-          se sídlem Podhradní 180, 692 01 Pavlov, IČO: 29273676, DIČ:
-          CZ29273676, zapsaná v obchodním rejstříku vedeném Krajským soudem v
-          Brně (dále jen „prodávající&quot;).
+          se sídlem Nová 626, 691 25 Vranovice, IČO: 45633592, DIČ: CZ456 33
+          592, zapsaná v obchodním rejstříku vedeném Krajským soudem v Brně
+          (dále jen „prodávající&quot;).
         </p>
         <p>
           Kupujícím je fyzická nebo právnická osoba, která uzavírá s
@@ -108,8 +108,11 @@ const ObchodniPodminkyPage = () => {
         <p>
           Odstoupení od smlouvy musí být prodávajícímu odesláno ve výše uvedené
           lhůtě, a to e-mailem na adresu{" "}
-          <a href="mailto:info@vinoiris.cz" className="underline text-primary">
-            info@vinoiris.cz
+          <a
+            href="mailto:info@vinarstvicelnar.cz"
+            className="underline text-primary"
+          >
+            info@vinarstvicelnar.cz
           </a>{" "}
           nebo poštou na adresu sídla prodávajícího. Kupující může využít
           vzorový formulář pro odstoupení od smlouvy dostupný v zákaznické
@@ -139,8 +142,11 @@ const ObchodniPodminkyPage = () => {
         </p>
         <p>
           Reklamaci lze uplatnit e-mailem na adresu{" "}
-          <a href="mailto:info@vinoiris.cz" className="underline text-primary">
-            info@vinoiris.cz
+          <a
+            href="mailto:info@vinarstvicelnar.cz"
+            className="underline text-primary"
+          >
+            info@vinarstvicelnar.cz
           </a>{" "}
           nebo písemně na adresu sídla prodávajícího. Reklamace bude vyřízena
           bez zbytečného odkladu, nejpozději do 30 dnů ode dne jejího uplatnění,
@@ -178,8 +184,11 @@ const ObchodniPodminkyPage = () => {
           Kupující má právo na přístup ke svým osobním údajům, jejich opravu,
           výmaz nebo přenositelnost, a dále právo vznést námitku proti
           zpracování. Tato práva lze uplatnit e-mailem na adresu{" "}
-          <a href="mailto:info@vinoiris.cz" className="underline text-primary">
-            info@vinoiris.cz
+          <a
+            href="mailto:info@vinarstvicelnar.cz"
+            className="underline text-primary"
+          >
+            info@vinarstvicelnar.cz
           </a>
           .
         </p>

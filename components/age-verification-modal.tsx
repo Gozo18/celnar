@@ -52,7 +52,7 @@ export default function AgeVerificationModal() {
           />
 
           <DialogTitle className="text-2xl text-black tracking-wide">
-            Vítejte ve Víno Iris
+            Vítejte ve Vinařství Celnar
           </DialogTitle>
 
           <DialogDescription className="text-black/50 text-sm tracking-wide">

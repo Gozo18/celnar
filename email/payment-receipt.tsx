@@ -75,7 +75,7 @@ type PaymentReceiptProps = {
 export default function PaymentReceiptEmail({ order }: PaymentReceiptProps) {
   return (
     <Html>
-      <Preview>Platba přijata – Víno Iris</Preview>
+      <Preview>Platba přijata – Vinařství Celnar</Preview>
       <Tailwind>
         <Head />
         <Body className="font-sans bg-gray-50">
@@ -84,12 +84,12 @@ export default function PaymentReceiptEmail({ order }: PaymentReceiptProps) {
             <Section className="bg-rose-800 rounded-t-lg px-8 py-6 text-center">
               <Img
                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo_only.png`}
-                alt="Víno Iris"
+                alt="Vinařství Celnar"
                 width="60"
                 className="mx-auto mb-3"
               />
               <Text className="text-white text-2xl font-bold m-0 tracking-wide">
-                Víno Iris
+                Vinařství Celnar
               </Text>
               <Text className="text-rose-200 text-sm m-0 mt-1">
                 Váš oblíbený vinný obchod
@@ -189,7 +189,8 @@ export default function PaymentReceiptEmail({ order }: PaymentReceiptProps) {
                 O odeslání objednávky Vás budeme informovat zvláštním e-mailem.
               </Text>
               <Text className="text-xs text-gray-400 m-0 mt-1">
-                © {new Date().getFullYear()} Víno Iris. Všechna práva vyhrazena.
+                © {new Date().getFullYear()} Vinařství Celnar. Všechna práva
+                vyhrazena.
               </Text>
             </Section>
           </Container>

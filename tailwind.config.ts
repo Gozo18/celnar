@@ -58,7 +58,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        cairo: ["var(--font-cairo-play)"],
+        arizonia: ["var(--font-arizonia)"],
       },
     },
   },

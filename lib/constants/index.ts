@@ -1,4 +1,4 @@
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Víno Iris"
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Vinařství Celnar"
 export const APP_DESCRIPTION =
   process.env.NEXT_PUBLIC_APP_DESCRIPTION || "Nejlepší vína z Moravy"
 export const SERVER_URL =
@@ -62,4 +62,5 @@ export const reviewFormDefaultValues = {
   rating: 0,
 }
 
-export const SENDER_EMAIL = process.env.SENDER_EMAIL || "info@vinoiris.cz"
+export const SENDER_EMAIL =
+  process.env.SENDER_EMAIL || "info@vinarstvicelnar.cz"

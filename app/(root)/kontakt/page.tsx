@@ -11,7 +11,7 @@ const KontaktPage = () => {
       <div className="space-y-2">
         <h1 className="text-3xl font-bold font-cairo">Kontakt</h1>
         <p className="text-muted-foreground">
-          Najdete nás v srdci Pálavy. Rádi vás přivítáme v našem vinařství.
+          Rádi vás přivítáme v našem vinařství.
         </p>
       </div>
 
@@ -24,9 +24,9 @@ const KontaktPage = () => {
             <div>
               <h2 className="font-semibold mb-1">Adresa</h2>
               <p className="text-muted-foreground">
-                Podhradní 180
+                Nová 626
                 <br />
-                692 01 Pavlov
+                691 25 Vranovice
                 <br />
                 Česká republika
               </p>
@@ -40,10 +40,10 @@ const KontaktPage = () => {
             <div>
               <h2 className="font-semibold mb-1">Telefon</h2>
               <a
-                href="tel:+420602528545"
+                href="tel:+420723467493"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                +420 602 528 545
+                +420 723 467 493
               </a>
             </div>
           </div>
@@ -55,10 +55,10 @@ const KontaktPage = () => {
             <div>
               <h2 className="font-semibold mb-1">E-mail</h2>
               <a
-                href="mailto:info@vinoiris.cz"
+                href="mailto:info@vinarstvicelnar.cz"
                 className="text-muted-foreground hover:text-foreground transition-colors"
               >
-                info@vinoiris.cz
+                info@vinarstvicelnar.cz
               </a>
             </div>
           </div>
@@ -79,14 +79,14 @@ const KontaktPage = () => {
 
         <div className="overflow-hidden rounded-lg border shadow-sm min-h-[400px]">
           <iframe
-            src="https://www.google.com/maps?q=V%C3%ADno+Iris,+Podhradn%C3%AD+180,+692+01+Pavlov&output=embed"
+            src="https://www.google.com/maps?q=Vina%C5%99stv%C3%AD+Celnar%2C+Nov%C3%A1+626%2C+691+25+Vranovice&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0, minHeight: "400px" }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Mapa – Vinařství Víno Iris, Podhradní 180, Pavlov"
+            title="Mapa – Vinařství Celnar, Nová 626, 691 25 Vranovice"
           />
         </div>
       </div>

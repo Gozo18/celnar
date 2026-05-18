@@ -4,14 +4,15 @@ import "@/assets/styles/globals.css"
 import { APP_NAME, APP_DESCRIPTION, SERVER_URL } from "@/lib/constants"
 import { ThemeProvider } from "next-themes"
 import { Toaster } from "@/components/ui/toaster"
-import { Cairo_Play } from "next/font/google"
+import { Arizonia } from "next/font/google"
 import CookieConsent from "@/components/cookie-consent"
 import GoogleAnalytics from "@/components/google-analytics"
 
-const cairoPlay = Cairo_Play({
-  subsets: ["latin", "arabic"],
-  variable: "--font-cairo-play",
+const arizonia = Arizonia({
+  subsets: ["latin"],
+  variable: "--font-arizonia",
   display: "swap",
+  weight: "400",
 })
 
 const inter = Inter({ subsets: ["latin"] })
@@ -31,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="cs" suppressHydrationWarning className={cairoPlay.variable}>
+    <html lang="cs" suppressHydrationWarning className={arizonia.variable}>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"

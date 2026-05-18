@@ -14,19 +14,25 @@ const Footer = () => {
             <Image
               src="/images/logo_only.png"
               alt={`${APP_NAME} logo`}
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               priority={true}
             />
-            <span className="font-bold font-cairo text-xl mx-3">{APP_NAME}</span>
+            <span className="font-arizonia text-3xl mx-3">{APP_NAME}</span>
           </Link>
           &copy; {currentYear}
         </div>
         <div className="text-sm text-muted-foreground flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-          <Link href="/kontakt" className="hover:underline hover:text-foreground transition-colors">
+          <Link
+            href="/kontakt"
+            className="hover:underline hover:text-foreground transition-colors"
+          >
             Kontakt
           </Link>
-          <Link href="/obchodni-podminky" className="hover:underline hover:text-foreground transition-colors">
+          <Link
+            href="/obchodni-podminky"
+            className="hover:underline hover:text-foreground transition-colors"
+          >
             Obchodní podmínky
           </Link>
           <CookieSettingsLink />
