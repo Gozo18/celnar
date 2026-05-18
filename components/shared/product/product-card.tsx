@@ -17,8 +17,8 @@ const ProductCard = async ({ product }: { product: Product }) => {
           <Image
             src={product.images[0]}
             alt={product.name}
-            width={300}
-            height={300}
+            width={250}
+            height={250}
             priority={true}
             className="hidden lg:block"
           />
@@ -34,7 +34,7 @@ const ProductCard = async ({ product }: { product: Product }) => {
       </CardHeader>
       <CardContent className="p-1 sm:p-4 grid gap-4">
         <div className="text-sm text-center font-cairo">{product.brand}</div>
-        <Link href={`/product/${product.slug}`} className="h-12 text-center">
+        <Link href={`/produkt/${product.slug}`} className="h-12 text-center">
           <h2 className="font-bold font-cairo text-sm sm:text-base">
             {product.sort} {product.year}
             <br />
