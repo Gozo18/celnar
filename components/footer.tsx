@@ -18,7 +18,7 @@ const Footer = () => {
               height={40}
               priority={true}
             />
-            <span className="font-arizonia text-3xl mx-3">{APP_NAME}</span>
+            <span className="font-arizonia text-4xl mx-3">{APP_NAME}</span>
           </Link>
           &copy; {currentYear}
         </div>

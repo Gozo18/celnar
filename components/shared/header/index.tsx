@@ -20,7 +20,7 @@ const Header = async () => {
               height={40}
               priority={true}
             />
-            <span className="hidden lg:block font-arizonia text-3xl ml-3">
+            <span className="hidden lg:block font-arizonia text-4xl ml-3">
               {APP_NAME}
             </span>
           </Link>
