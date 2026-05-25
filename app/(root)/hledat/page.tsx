@@ -11,6 +11,7 @@ import { getAllProducts, getAllCategories } from "@/lib/actions/product.actions"
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu"
 import { ChevronDownIcon } from "lucide-react"
 import Link from "next/link"
+import Pagination from "@/components/shared/pagination"
 
 const prices = [
   {
@@ -304,6 +305,11 @@ const SearchPage = async (props: {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+        {products.totalPages > 1 && (
+          <div className="flex justify-center mt-6">
+            <Pagination page={Number(page)} totalPages={products.totalPages} />
+          </div>
+        )}
       </div>
     </div>
   )
