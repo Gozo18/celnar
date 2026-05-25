@@ -1,6 +1,5 @@
-import { auth } from "@/auth"
 import { getMyCart } from "@/lib/actions/cart.actions"
-import { getUserById } from "@/lib/actions/user.actions"
+import { getCurrentUser } from "@/lib/current-user"
 import { ShippingAddress } from "@/types"
 import { Metadata } from "next"
 import { redirect } from "next/navigation"
@@ -28,12 +27,8 @@ export const metadata: Metadata = {
 
 const PlaceOrderPage = async () => {
   const cart = await getMyCart()
-  const session = await auth()
-  const userId = session?.user?.id
-
-  if (!userId) throw new Error("Uživatel nenalezen.")
-
-  const user = await getUserById(userId)
+  const user = await getCurrentUser()
+  if (!user) redirect("/dodaci-adresa")
 
   if (!cart || cart.items.length === 0) redirect("/kosik")
   if (!user.address) redirect("/dodaci-adresa")

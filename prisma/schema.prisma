@@ -112,6 +112,8 @@ model Order {
   shippingAddress Json        @db.Json
   paymentMethod   String
   deliveryMethod  String      @default("Osobně na prodejně")
+  accessToken     String?     @unique
+  guestEmail      String?
   paymentResult   Json?       @db.Json
   itemsPrice      Decimal     @db.Decimal(12, 2)
   shippingPrice   Decimal     @db.Decimal(12, 2)

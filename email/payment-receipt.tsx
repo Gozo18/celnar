@@ -29,6 +29,8 @@ PaymentReceiptEmail.PreviewProps = {
     },
     paymentMethod: "Stripe",
     deliveryMethod: "Osobně na prodejně",
+    accessToken: "preview-token",
+    guestEmail: null,
     shippingAddress: {
       fullName: "John Doe",
       streetAddress: "123 Main st",

@@ -13,18 +13,19 @@ import { revalidatePath } from "next/cache"
 import { PAGE_SIZE, DELIVERY_PRICES } from "../constants"
 import { Prisma } from "@prisma/client"
 import { sendOrderReceived, sendPaymentReceipt, sendPurchaseReceipt } from "@/email"
+import { getCurrentUserId } from "../current-user"
+import crypto from "crypto"
 
 // Create order and create the order items
 export async function createOrder() {
   try {
-    const session = await auth()
-    if (!session) throw new Error("Uživatel nepřihlášen.")
-
-    const cart = await getMyCart()
-    const userId = session?.user?.id
+    const userId = await getCurrentUserId()
     if (!userId) throw new Error("Uživatel nenalezen.")
 
+    const cart = await getMyCart()
+
     const user = await getUserById(userId)
+    const isGuest = user.role === "guest"
 
     if (!cart || cart.items.length === 0) {
       return {
@@ -82,10 +83,18 @@ export async function createOrder() {
       totalPrice,
     })
 
+    const accessToken = crypto.randomBytes(24).toString("hex")
+
     // Create a transaction to create order and order items in database
     const insertedOrderId = await prisma.$transaction(async (tx) => {
       // Create order
-      const insertedOrder = await tx.order.create({ data: order })
+      const insertedOrder = await tx.order.create({
+        data: {
+          ...order,
+          accessToken,
+          guestEmail: isGuest ? user.email : null,
+        },
+      })
       // Create order items from the cart items
       for (const item of cart.items as CartItem[]) {
         await tx.orderItem.create({
@@ -122,21 +131,28 @@ export async function createOrder() {
     })
 
     if (newOrder) {
-      sendOrderReceived({
-        order: {
-          ...newOrder,
-          shippingAddress: newOrder.shippingAddress as ShippingAddress,
-          paymentResult: newOrder.paymentResult as PaymentResult,
-        },
-      })
+      try {
+        console.log("[email] Posílám potvrzení objednávky na:", newOrder.user?.email)
+        await sendOrderReceived({
+          order: {
+            ...newOrder,
+            shippingAddress: newOrder.shippingAddress as ShippingAddress,
+            paymentResult: newOrder.paymentResult as PaymentResult,
+          },
+        })
+        console.log("[email] Potvrzení odesláno.")
+      } catch (emailError) {
+        console.error("[email] Chyba při odesílání potvrzení:", emailError)
+      }
     }
 
+    const tokenSuffix = isGuest ? `?token=${accessToken}` : ""
     let redirectLink = ""
 
     if (user.paymentMethod === "Stripe" || user.paymentMethod === "Paypal") {
-      redirectLink = `/moje-objednavky/${insertedOrderId}#payment-section`
+      redirectLink = `/moje-objednavky/${insertedOrderId}${tokenSuffix}#payment-section`
     } else {
-      redirectLink = `/moje-objednavky/${insertedOrderId}`
+      redirectLink = `/moje-objednavky/${insertedOrderId}${tokenSuffix}`
     }
 
     return {

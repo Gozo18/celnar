@@ -3,11 +3,11 @@
 import { CartItem } from "@/types"
 import { convertToPlainObject, formatError, round2 } from "@/lib/utils"
 import { cookies } from "next/headers"
-import { auth } from "@/auth"
 import { prisma } from "@/db/prisma"
 import { cartItemSchema, insertCartSchema } from "../validators"
 import { revalidatePath } from "next/cache"
 import { Prisma } from "@prisma/client"
+import { getCurrentUserId } from "@/lib/current-user"
 
 // Calculate cart prices
 // Shipping is determined by the user's selected delivery method on /platebni-metody
@@ -35,9 +35,8 @@ export async function addItemToCart(data: CartItem) {
 
     if (!sessionCartId) throw new Error("Nemůžeme najít košík")
 
-    // Get session and user id
-    const session = await auth()
-    const userId = session?.user?.id ? (session.user.id as string) : undefined
+    // Get user id (session OR guest cookie)
+    const userId = (await getCurrentUserId()) ?? undefined
 
     // Get cart
     const cart = await getMyCart()
@@ -133,9 +132,8 @@ export async function getMyCart() {
 
   if (!sessionCartId) throw new Error("Nemůžeme najít košík")
 
-  // Get session and user id
-  const session = await auth()
-  const userId = session?.user?.id ? (session.user.id as string) : undefined
+  // Get user id (session OR guest cookie)
+  const userId = (await getCurrentUserId()) ?? undefined
 
   // Get user cart from database
   const cart = await prisma.cart.findFirst({

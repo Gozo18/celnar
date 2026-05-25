@@ -29,6 +29,11 @@ export const shippingAddressDefaultValues = {
   phone: "",
 }
 
+export const guestShippingAddressDefaultValues = {
+  ...shippingAddressDefaultValues,
+  email: "",
+}
+
 export const PAYMENT_METHODS = process.env.PAYMENT_METHODS
   ? process.env.PAYMENT_METHODS.split(", ")
   : ["PayPal", "Stripe", "Hotovost"]

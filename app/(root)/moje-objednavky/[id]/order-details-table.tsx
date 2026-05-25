@@ -36,12 +36,14 @@ const OrderDetailsTable = ({
   isAdmin,
   stripeClientSecret,
   userEmail,
+  viewerToken,
 }: {
   order: Omit<Order, "paymentResult">
   paypalClientId: string
   isAdmin: boolean
   stripeClientSecret: string | null
   userEmail: string
+  viewerToken?: string
 }) => {
   const {
     id,
@@ -296,6 +298,7 @@ const OrderDetailsTable = ({
                         orderId={order.id}
                         clientSecret={stripeClientSecret}
                         userEmail={userEmail}
+                        accessToken={viewerToken}
                       />
                     )}
                 </CardContent>

@@ -81,6 +81,11 @@ export const shippingAddressSchema = z.object({
   phone: z.string().min(9, "Telefon musí mít minimálně 9 znaků."),
 })
 
+// Schema for shipping address when ordering as a guest – requires email
+export const guestShippingAddressSchema = shippingAddressSchema.extend({
+  email: z.string().email("Musí být platná e-mailová adresa."),
+})
+
 // Schema for payment method
 export const paymentMethodSchema = z
   .object({
