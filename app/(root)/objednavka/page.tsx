@@ -6,6 +6,7 @@ import { Metadata } from "next"
 import { redirect } from "next/navigation"
 import CheckoutSteps from "@/components/shared/checkout-steps"
 import { Card, CardContent } from "@/components/ui/card"
+import { DELIVERY_PRICES } from "@/lib/constants"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
@@ -37,17 +38,21 @@ const PlaceOrderPage = async () => {
   if (!cart || cart.items.length === 0) redirect("/kosik")
   if (!user.address) redirect("/dodaci-adresa")
   if (!user.paymentMethod) redirect("/platebni-metody")
+  if (!user.deliveryMethod) redirect("/platebni-metody")
 
   const userAddress = user.address as ShippingAddress
 
   const COD_SURCHARGE = 50
   const isCOD = user.paymentMethod === "Hotovost"
-  const displayShippingPrice = isCOD
-    ? (Number(cart.shippingPrice) + COD_SURCHARGE).toFixed(2)
-    : cart.shippingPrice
-  const displayTotalPrice = isCOD
-    ? (Number(cart.totalPrice) + COD_SURCHARGE).toFixed(2)
-    : cart.totalPrice
+  const deliveryFee = DELIVERY_PRICES[user.deliveryMethod] ?? 0
+  const displayShippingPrice = (
+    deliveryFee + (isCOD ? COD_SURCHARGE : 0)
+  ).toFixed(2)
+  const displayTotalPrice = (
+    Number(cart.itemsPrice) +
+    deliveryFee +
+    (isCOD ? COD_SURCHARGE : 0)
+  ).toFixed(2)
 
   return (
     <>
@@ -65,6 +70,18 @@ const PlaceOrderPage = async () => {
               </p>
               <div className="mt-3">
                 <Link href="/dodaci-adresa">
+                  <Button variant="outline">Upravit</Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="p-4 gap-4">
+              <h2 className="text-xl pb-4">Doprava</h2>
+              <p>{user.deliveryMethod}</p>
+              <div className="mt-3">
+                <Link href="/platebni-metody">
                   <Button variant="outline">Upravit</Button>
                 </Link>
               </div>

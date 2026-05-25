@@ -5,6 +5,7 @@ import {
   signInFormSchema,
   signUpFormSchema,
   paymentMethodSchema,
+  checkoutMethodsSchema,
   updateUserSchema,
 } from "../validators"
 import { auth, signIn, signOut } from "@/auth"
@@ -149,6 +150,40 @@ export async function updateUserPaymentMethod(
     return {
       success: true,
       message: "Platební metoda byla úspěšně aktualizována.",
+    }
+  } catch (error) {
+    return { success: false, message: formatError(error) }
+  }
+}
+
+// Update user´s payment and delivery method together
+export async function updateUserCheckoutMethods(
+  data: z.infer<typeof checkoutMethodsSchema>,
+) {
+  try {
+    const session = await auth()
+
+    const currentUser = await prisma.user.findFirst({
+      where: { id: session?.user?.id },
+    })
+
+    if (!currentUser) {
+      throw new Error("Uživatel nenalezen.")
+    }
+
+    const parsed = checkoutMethodsSchema.parse(data)
+
+    await prisma.user.update({
+      where: { id: currentUser.id },
+      data: {
+        paymentMethod: parsed.paymentMethod,
+        deliveryMethod: parsed.deliveryMethod,
+      },
+    })
+
+    return {
+      success: true,
+      message: "Platba a doprava byly úspěšně uloženy.",
     }
   } catch (error) {
     return { success: false, message: formatError(error) }

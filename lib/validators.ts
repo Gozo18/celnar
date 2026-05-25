@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { formatNumberWithDecimal } from "./utils"
-import { PAYMENT_METHODS } from "./constants"
+import { PAYMENT_METHODS, DELIVERY_METHODS } from "./constants"
 
 const currency = z
   .string()
@@ -93,6 +93,30 @@ export const paymentMethodSchema = z
     )}`,
   })
 
+// Schema for delivery method
+export const deliveryMethodSchema = z
+  .object({
+    type: z.string().min(1, "Způsob dopravy je vyžadován."),
+  })
+  .refine((data) => DELIVERY_METHODS.includes(data.type as typeof DELIVERY_METHODS[number]), {
+    path: ["type"],
+    message: `Způsob dopravy musí být jeden z následujících: ${DELIVERY_METHODS.join(
+      ", "
+    )}`,
+  })
+
+// Combined checkout-step schema for payment + delivery
+export const checkoutMethodsSchema = z.object({
+  paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
+    message: "Neplatný způsob platby.",
+  }),
+  deliveryMethod: z
+    .string()
+    .refine((data) => DELIVERY_METHODS.includes(data as typeof DELIVERY_METHODS[number]), {
+      message: "Neplatný způsob dopravy.",
+    }),
+})
+
 // Schema for inserting order
 export const insertOrderSchema = z.object({
   userId: z.string().min(1, "Uživatel je vyžadován."),
@@ -104,6 +128,11 @@ export const insertOrderSchema = z.object({
   paymentMethod: z.string().refine((data) => PAYMENT_METHODS.includes(data), {
     message: "Neplatný způsob platby.",
   }),
+  deliveryMethod: z
+    .string()
+    .refine((data) => DELIVERY_METHODS.includes(data as typeof DELIVERY_METHODS[number]), {
+      message: "Neplatný způsob dopravy.",
+    }),
 })
 
 // Schema for updating products

@@ -28,6 +28,7 @@ OrderReceivedEmail.PreviewProps = {
       email: "test@test.com",
     },
     paymentMethod: "Stripe",
+    deliveryMethod: "Osobně na prodejně",
     shippingAddress: {
       fullName: "John Doe",
       streetAddress: "123 Main st",
@@ -135,6 +136,18 @@ export default function OrderReceivedEmail({ order }: OrderReceivedProps) {
                   </Text>
                 </Column>
               </Row>
+              {order.deliveryMethod && (
+                <Row className="mt-3">
+                  <Column>
+                    <Text className="mb-0 text-xs text-gray-400 uppercase tracking-wide">
+                      Způsob dopravy
+                    </Text>
+                    <Text className="mt-1 text-sm text-gray-700 font-medium">
+                      {order.deliveryMethod}
+                    </Text>
+                  </Column>
+                </Row>
+              )}
             </Section>
 
             {/* Products */}

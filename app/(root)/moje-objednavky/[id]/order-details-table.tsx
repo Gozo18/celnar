@@ -52,6 +52,7 @@ const OrderDetailsTable = ({
     taxPrice,
     totalPrice,
     paymentMethod,
+    deliveryMethod,
     isDelivered,
     isPaid,
     paidAt,
@@ -183,6 +184,12 @@ const OrderDetailsTable = ({
                 {shippingAddress.streetAddress}, {shippingAddress.city}{" "}
                 {shippingAddress.postalCode}, {shippingAddress.country}
               </p>
+              {deliveryMethod && (
+                <p className="mb-2 text-sm md:text-base">
+                  <span className="text-muted-foreground">Doprava: </span>
+                  {deliveryMethod}
+                </p>
+              )}
               {isDelivered ? (
                 <Badge
                   variant="secondary"

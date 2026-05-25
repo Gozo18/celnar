@@ -28,6 +28,7 @@ PurchaseReceiptEmail.PreviewProps = {
       email: "test@test.com",
     },
     paymentMethod: "Stripe",
+    deliveryMethod: "Osobně na prodejně",
     shippingAddress: {
       fullName: "John Doe",
       streetAddress: "123 Main st",

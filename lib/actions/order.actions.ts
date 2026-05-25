@@ -10,7 +10,7 @@ import { prisma } from "@/db/prisma"
 import { CartItem, PaymentResult, ShippingAddress } from "@/types"
 import { paypal } from "../paypal"
 import { revalidatePath } from "next/cache"
-import { PAGE_SIZE } from "../constants"
+import { PAGE_SIZE, DELIVERY_PRICES } from "../constants"
 import { Prisma } from "@prisma/client"
 import { sendOrderReceived, sendPaymentReceipt, sendPurchaseReceipt } from "@/email"
 
@@ -50,20 +50,30 @@ export async function createOrder() {
       }
     }
 
+    if (!user.deliveryMethod) {
+      return {
+        success: false,
+        message: "Není vybraný způsob dopravy.",
+        redirectTo: "/platebni-metody",
+      }
+    }
+
     const COD_SURCHARGE = 50
     const isCOD = user.paymentMethod === "Hotovost"
-    const shippingPrice = isCOD
-      ? (Number(cart.shippingPrice) + COD_SURCHARGE).toFixed(2)
-      : cart.shippingPrice
-    const totalPrice = isCOD
-      ? (Number(cart.totalPrice) + COD_SURCHARGE).toFixed(2)
-      : cart.totalPrice
+    const deliveryFee = DELIVERY_PRICES[user.deliveryMethod] ?? 0
+    const shippingPrice = (deliveryFee + (isCOD ? COD_SURCHARGE : 0)).toFixed(2)
+    const totalPrice = (
+      Number(cart.itemsPrice) +
+      deliveryFee +
+      (isCOD ? COD_SURCHARGE : 0)
+    ).toFixed(2)
 
     // Create order object
     const order = insertOrderSchema.parse({
       userId: user.id,
       shippingAddress: user.address,
       paymentMethod: user.paymentMethod,
+      deliveryMethod: user.deliveryMethod,
       itemsPrice: cart.itemsPrice,
       shippingPrice,
       taxPrice: cart.taxPrice,

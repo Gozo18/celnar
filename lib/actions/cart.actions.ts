@@ -10,11 +10,13 @@ import { revalidatePath } from "next/cache"
 import { Prisma } from "@prisma/client"
 
 // Calculate cart prices
+// Shipping is determined by the user's selected delivery method on /platebni-metody
+// and applied at checkout (see order.actions.ts and the objednavka page).
 const calcPrice = (items: CartItem[]) => {
   const itemsPrice = round2(
       items.reduce((acc, item) => acc + Number(item.price) * item.qty, 0),
     ),
-    shippingPrice = round2(itemsPrice > 2500 ? 0 : 250),
+    shippingPrice = round2(0),
     taxPrice = round2(itemsPrice / 1.21),
     totalPrice = round2(itemsPrice + shippingPrice)
 
