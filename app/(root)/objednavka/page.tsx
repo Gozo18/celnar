@@ -42,16 +42,16 @@ const PlaceOrderPage = async () => {
 
   const userAddress = user.address as ShippingAddress
 
-  const COD_SURCHARGE = 50
+  const COD_SURCHARGE = 30
+  const isPickup = user.deliveryMethod === "Osobně na prodejně"
   const isCOD = user.paymentMethod === "Hotovost"
+  const codFee = isCOD && !isPickup ? COD_SURCHARGE : 0
   const deliveryFee = DELIVERY_PRICES[user.deliveryMethod] ?? 0
-  const displayShippingPrice = (
-    deliveryFee + (isCOD ? COD_SURCHARGE : 0)
-  ).toFixed(2)
+  const displayShippingPrice = (deliveryFee + codFee).toFixed(2)
   const displayTotalPrice = (
     Number(cart.itemsPrice) +
     deliveryFee +
-    (isCOD ? COD_SURCHARGE : 0)
+    codFee
   ).toFixed(2)
 
   return (
@@ -155,9 +155,9 @@ const PlaceOrderPage = async () => {
               <div className="flex justify-between">
                 <div>
                   Doprava &nbsp;
-                  {isCOD && (
+                  {codFee > 0 && (
                     <span className="text-black/50 text-sm">
-                      (včetně dobírky 50 Kč)
+                      (včetně dobírky 30 Kč)
                     </span>
                   )}
                 </div>

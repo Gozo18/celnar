@@ -55,7 +55,7 @@ const PAYMENT_METHOD_META: Record<
   Hotovost: {
     icon: <HandCoins className="w-6 h-6" />,
     label: "Dobírka",
-    fee: "+ 50 Kč",
+    fee: "+ 30 Kč",
     description: "Platba při převzetí zásilky",
   },
 }
@@ -93,6 +93,9 @@ const PaymentMethodForm = ({
       deliveryMethod: preferredDeliveryMethod || DEFAULT_DELIVERY_METHOD,
     },
   })
+
+  const selectedDelivery = form.watch("deliveryMethod")
+  const isPickup = selectedDelivery === "Osobně na prodejně"
 
   const [isPending, startTransition] = useTransition()
 
@@ -213,7 +216,15 @@ const PaymentMethodForm = ({
                       className="flex flex-col gap-3"
                     >
                       {PAYMENT_METHODS.map((paymentMethod) => {
-                        const meta = PAYMENT_METHOD_META[paymentMethod]
+                        const baseMeta = PAYMENT_METHOD_META[paymentMethod]
+                        const meta =
+                          paymentMethod === "Hotovost" && isPickup
+                            ? {
+                                ...baseMeta,
+                                fee: "zdarma",
+                                description: "Platba v hotovosti na prodejně",
+                              }
+                            : baseMeta
                         const isSelected = field.value === paymentMethod
                         return (
                           <label

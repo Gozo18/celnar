@@ -58,14 +58,16 @@ export async function createOrder() {
       }
     }
 
-    const COD_SURCHARGE = 50
+    const COD_SURCHARGE = 30
+    const isPickup = user.deliveryMethod === "Osobně na prodejně"
     const isCOD = user.paymentMethod === "Hotovost"
+    const codFee = isCOD && !isPickup ? COD_SURCHARGE : 0
     const deliveryFee = DELIVERY_PRICES[user.deliveryMethod] ?? 0
-    const shippingPrice = (deliveryFee + (isCOD ? COD_SURCHARGE : 0)).toFixed(2)
+    const shippingPrice = (deliveryFee + codFee).toFixed(2)
     const totalPrice = (
       Number(cart.itemsPrice) +
       deliveryFee +
-      (isCOD ? COD_SURCHARGE : 0)
+      codFee
     ).toFixed(2)
 
     // Create order object
