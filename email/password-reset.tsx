@@ -29,7 +29,7 @@ export default function PasswordResetEmail({
 }: PasswordResetEmailProps) {
   return (
     <Html>
-      <Preview>Obnova hesla – Víno Iris</Preview>
+      <Preview>Obnova hesla – Vinařství Celnar</Preview>
       <Tailwind>
         <Head />
         <Body className="font-sans bg-gray-50">
@@ -38,12 +38,12 @@ export default function PasswordResetEmail({
             <Section className="bg-gray-200 rounded-t-lg px-8 py-6 text-center">
               <Img
                 src={`${process.env.NEXT_PUBLIC_SERVER_URL}/images/logo_only.png`}
-                alt="Víno Iris"
+                alt="Vinařství Celnar"
                 width="60"
                 className="mx-auto mb-3"
               />
               <Text className="text-2xl font-bold m-0 tracking-wide">
-                Víno Iris
+                Vinařství Celnar
               </Text>
               <Text className="text-sm m-0 mt-1">
                 Vaše oblíbené vinařství z Pavlova
@@ -92,10 +92,12 @@ export default function PasswordResetEmail({
             {/* Footer */}
             <Section className="px-8 py-6 text-center">
               <Text className="text-xs text-gray-400 m-0">
-                V případě dotazů nás neváhejte kontaktovat na info@vinoiris.cz.
+                V případě dotazů nás neváhejte kontaktovat na
+                info@vinarstvicelnar.cz.
               </Text>
               <Text className="text-xs text-gray-400 m-0 mt-1">
-                © {new Date().getFullYear()} Víno Iris. Všechna práva vyhrazena.
+                © {new Date().getFullYear()} Vinařství Celnar. Všechna práva
+                vyhrazena.
               </Text>
             </Section>
           </Container>

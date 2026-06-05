@@ -24,7 +24,7 @@ export const sendPasswordResetEmail = async ({
   const { error } = await resend.emails.send({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: email,
-    subject: `Obnova hesla – Víno Iris`,
+    subject: `Obnova hesla – Vinařství Celnar`,
     react: <PasswordResetEmail name={name} resetUrl={resetUrl} />,
   })
   if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
@@ -40,7 +40,7 @@ export const sendWelcomeEmail = async ({
   const { error } = await resend.emails.send({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: email,
-    subject: `Vítejte ve Víno Iris`,
+    subject: `Vítejte ve Vinařství Celnar`,
     react: <WelcomeEmail name={name} />,
   })
   if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
