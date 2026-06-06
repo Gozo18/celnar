@@ -68,8 +68,6 @@ const OrderDetailsTable = ({
       ? getQrPaymentUrl({ amount: totalPrice, variableSymbol })
       : ""
 
-  const { toast } = useToast()
-
   // Button to mark order as paid
   const MarkAsPaidButton = () => {
     const [isPending, startTransition] = useTransition()

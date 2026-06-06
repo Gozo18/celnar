@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import { MapPin, Phone, Mail } from "lucide-react"
 
 export const metadata: Metadata = {
   title: "Kontakt",
@@ -24,11 +24,13 @@ const KontaktPage = () => {
             <div>
               <h2 className="font-semibold mb-1">Adresa</h2>
               <p className="text-muted-foreground">
-                Nová 626
+                Celnar rodinné vinařství
+                <br />
+                Pouzdřanská 500
                 <br />
                 691 25 Vranovice
                 <br />
-                Česká republika
+                Česko
               </p>
             </div>
           </div>
@@ -63,30 +65,18 @@ const KontaktPage = () => {
             </div>
           </div>
 
-          <div className="flex items-start gap-4">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-              <Clock className="h-5 w-5" />
-            </div>
-            <div>
-              <h2 className="font-semibold mb-1">Otevírací doba</h2>
-              <div className="text-muted-foreground space-y-0.5">
-                <p>Pondělí – Pátek: 9:00 – 17:00</p>
-                <p>Sobota - Neděle: 10:00 – 17:00</p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="overflow-hidden rounded-lg border shadow-sm min-h-[400px]">
           <iframe
-            src="https://www.google.com/maps?q=Vina%C5%99stv%C3%AD+Celnar%2C+Nov%C3%A1+626%2C+691+25+Vranovice&output=embed"
+            src="https://www.google.com/maps?q=Celnar+rodinn%C3%A9+vina%C5%99stv%C3%AD%2C+Pouzd%C5%99ansk%C3%A1+500%2C+691+25+Vranovice&output=embed"
             width="100%"
             height="100%"
             style={{ border: 0, minHeight: "400px" }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Mapa – Vinařství Celnar, Nová 626, 691 25 Vranovice"
+            title="Mapa – Celnar rodinné vinařství, Pouzdřanská 500, 691 25 Vranovice"
           />
         </div>
       </div>

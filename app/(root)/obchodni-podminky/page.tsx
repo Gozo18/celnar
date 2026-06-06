@@ -20,10 +20,10 @@ const ObchodniPodminkyPage = () => {
           obchodu {APP_NAME} (dále jen „e-shop&quot;).
         </p>
         <p>
-          Provozovatelem e-shopu a prodávajícím je společnost {APP_NAME} s.r.o.,
-          se sídlem Nová 626, 691 25 Vranovice, IČO: 45633592, DIČ: CZ456 33
-          592, zapsaná v obchodním rejstříku vedeném Krajským soudem v Brně
-          (dále jen „prodávající&quot;).
+          Provozovatelem e-shopu a prodávajícím je společnost Lubomír Celnar, se
+          sídlem Nová 626, 691 25 Vranovice, IČO: 45633592, DIČ: CZ456 33 592,
+          zapsaná v obchodním rejstříku vedeném Krajským soudem v Brně (dále jen
+          „prodávající&quot;).
         </p>
         <p>
           Kupujícím je fyzická nebo právnická osoba, která uzavírá s
