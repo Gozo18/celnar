@@ -16,10 +16,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { useToast } from "@/hooks/use-toast"
 import { useTransition } from "react"
-import {
-  updateOrderToPaidCOD,
-  deliverOrder,
-} from "@/lib/actions/order.actions"
+import { updateOrderToPaidCOD, deliverOrder } from "@/lib/actions/order.actions"
 import StripePayment from "./stripe-payment"
 import { Separator } from "@/components/ui/separator"
 import {
@@ -276,8 +273,8 @@ const OrderDetailsTable = ({
                   Platební instrukce
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Uhraďte objednávku převodem na náš účet. Po připsání platby
-                  ji začneme připravovat.
+                  Uhraďte objednávku převodem na náš účet. Po připsání platby ji
+                  začneme připravovat.
                 </p>
                 <div className="space-y-2">
                   <div className="flex justify-between gap-3">

@@ -1,3 +1,4 @@
+import Pagination from "@/components/shared/pagination"
 import ProductCard from "@/components/shared/product/product-card"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
@@ -312,7 +313,10 @@ const SearchPage = async (props: {
         </div>
         {products.totalPages > 1 && (
           <div className="flex justify-center mt-6">
-            <Pagination page={Number(page)} totalPages={products.totalPages} />
+            <Pagination
+              page={Number(page)}
+              totalPages={products.totalPages}
+            />
           </div>
         )}
       </div>

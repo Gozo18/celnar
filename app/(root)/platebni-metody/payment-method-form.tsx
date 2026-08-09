@@ -35,6 +35,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { updateUserCheckoutMethods } from "@/lib/actions/user.actions"
 import { Card } from "@/components/ui/card"
 import { cn, formatCurrency } from "@/lib/utils"
+import ShippingNotice from "@/components/shared/shipping-notice"
 
 const PAYMENT_METHOD_META: Record<
   string,
@@ -89,7 +90,10 @@ const PaymentMethodForm = ({
   const form = useForm<z.infer<typeof checkoutMethodsSchema>>({
     resolver: zodResolver(checkoutMethodsSchema),
     defaultValues: {
-      paymentMethod: preferredPaymentMethod || DEFAULT_PAYMENT_METHOD,
+      paymentMethod:
+        preferredPaymentMethod && preferredPaymentMethod !== "Stripe"
+          ? preferredPaymentMethod
+          : DEFAULT_PAYMENT_METHOD,
       deliveryMethod: preferredDeliveryMethod || DEFAULT_DELIVERY_METHOD,
     },
   })
@@ -213,7 +217,7 @@ const PaymentMethodForm = ({
                     <RadioGroup
                       onValueChange={field.onChange}
                       defaultValue={field.value}
-                      className="flex flex-col gap-3"
+                      className="flex flex-col gap-3 [&>:nth-child(2)]:hidden"
                     >
                       {PAYMENT_METHODS.map((paymentMethod) => {
                         const baseMeta = PAYMENT_METHOD_META[paymentMethod]
@@ -291,6 +295,8 @@ const PaymentMethodForm = ({
           </form>
         </Form>
       </Card>
+
+      <ShippingNotice />
     </div>
   )
 }
