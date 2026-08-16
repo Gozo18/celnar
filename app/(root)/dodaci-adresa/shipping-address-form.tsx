@@ -27,10 +27,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Loader } from "lucide-react"
-import {
-  createGuestUser,
-  updateUserAddress,
-} from "@/lib/actions/user.actions"
+import { createGuestUser, updateUserAddress } from "@/lib/actions/user.actions"
 import { guestShippingAddressDefaultValues } from "@/lib/constants"
 import { Card } from "@/components/ui/card"
 import Link from "next/link"
@@ -95,7 +92,7 @@ const ShippingAddressForm = ({
   }
 
   return (
-    <div className="max-w-md mx-auto space-y-4">
+    <div className="max-w-md mx-auto space-y-4 mb-10">
       <Card className="p-8">
         <h1 className="h2-bold">Dodací adresa</h1>
         {isGuest ? (

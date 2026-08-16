@@ -120,7 +120,7 @@ const PaymentMethodForm = ({
   }
 
   return (
-    <div className="max-w-md mx-auto space-y-4">
+    <div className="max-w-md mx-auto space-y-4 mb-10">
       <Card className="p-8">
         <div className="mb-6">
           <h1 className="h2-bold">Doprava a platba</h1>
