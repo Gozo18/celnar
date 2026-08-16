@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button"
 import { auth } from "@/auth"
 import Link from "next/link"
-import { ShoppingCart, House, UserIcon, CircleUser, Grape } from "lucide-react"
+import {
+  ShoppingCart,
+  House,
+  UserIcon,
+  CircleUser,
+  Grape,
+  Phone,
+} from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -28,6 +35,11 @@ const Menu = async () => {
           <Button asChild variant="ghost">
             <Link href={`/hledat`} className="font-normal">
               <Grape /> naše vína
+            </Link>
+          </Button>
+          <Button asChild variant="ghost">
+            <Link href="/kontakt" className="font-normal">
+              <Phone /> Kontakt
             </Link>
           </Button>
         </div>
@@ -66,6 +78,16 @@ const Menu = async () => {
             <Link href="/hledat">
               <Grape className="h-5 w-5 shrink-0" />
               <span className="text-[11px]">naše vína</span>
+            </Link>
+          </Button>
+          <Button
+            asChild
+            variant="ghost"
+            className="flex-1 flex flex-col gap-0.5 h-full rounded-none font-normal text-white/80 hover:text-white hover:bg-white/10"
+          >
+            <Link href="/kontakt">
+              <Phone className="h-5 w-5 shrink-0" />{" "}
+              <span className="text-[11px]">Kontakt</span>
             </Link>
           </Button>
           <Button

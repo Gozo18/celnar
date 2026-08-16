@@ -13,7 +13,6 @@ import { getMyCart } from "@/lib/actions/cart.actions"
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu"
 import { ChevronDownIcon } from "lucide-react"
 import Link from "next/link"
-import Pagination from "@/components/shared/pagination"
 
 const prices = [
   {
