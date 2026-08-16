@@ -229,7 +229,7 @@ export async function updateOrderToPaid({
 
   if (!updatedOrder) throw new Error("Objednávka nenalezena.")
 
-  sendPaymentReceipt({
+  await sendPaymentReceipt({
     order: {
       ...updatedOrder,
       shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
@@ -413,7 +413,7 @@ export async function deliverOrder(orderId: string) {
     })
 
     if (updatedOrder) {
-      sendPurchaseReceipt({
+      await sendPurchaseReceipt({
         order: {
           ...updatedOrder,
           shippingAddress: updatedOrder.shippingAddress as ShippingAddress,
