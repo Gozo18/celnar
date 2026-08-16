@@ -1,4 +1,5 @@
-import { Resend } from "resend"
+import nodemailer from "nodemailer"
+import { render } from "@react-email/components"
 import { SENDER_EMAIL, APP_NAME } from "@/lib/constants"
 import { Order } from "@/types"
 import dotenv from "dotenv"
@@ -10,7 +11,17 @@ import PurchaseReceiptEmail from "./purchase-receipt"
 import WelcomeEmail from "./welcome"
 import PasswordResetEmail from "./password-reset"
 
-const resend = new Resend(process.env.RESEND_API_KEY as string)
+const transporter = nodemailer.createTransport({
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: process.env.SMTP_SECURE === "true",
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+})
+
+
 
 export const sendPasswordResetEmail = async ({
   name,
@@ -21,13 +32,13 @@ export const sendPasswordResetEmail = async ({
   email: string
   resetUrl: string
 }) => {
-  const { error } = await resend.emails.send({
+  const html = await render(<PasswordResetEmail name={name} resetUrl={resetUrl} />)
+  await transporter.sendMail({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: email,
     subject: `Obnova hesla – Vinařství Celnar`,
-    react: <PasswordResetEmail name={name} resetUrl={resetUrl} />,
+    html,
   })
-  if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
 }
 
 export const sendWelcomeEmail = async ({
@@ -37,42 +48,49 @@ export const sendWelcomeEmail = async ({
   name: string
   email: string
 }) => {
-  const { error } = await resend.emails.send({
+  const html = await render(<WelcomeEmail name={name} />)
+  await transporter.sendMail({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: email,
     subject: `Vítejte ve Vinařství Celnar`,
-    react: <WelcomeEmail name={name} />,
+    html,
   })
-  if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
 }
 
 export const sendOrderReceived = async ({ order }: { order: Order }) => {
-  const { error } = await resend.emails.send({
+  const html = await render(<OrderReceivedEmail order={order} />)
+
+  await transporter.sendMail({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: order.user.email,
-    bcc: "info@vinarstvicelnar.cz",
     subject: `Objednávka přijata – ${order.id.toString().slice(-6)}`,
-    react: <OrderReceivedEmail order={order} />,
+    html,
   })
-  if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
+
+  await transporter.sendMail({
+    from: `${APP_NAME} <${SENDER_EMAIL}>`,
+    to: "info@vinarstvicelnar.cz",
+    subject: `NOVÁ OBJEDNÁVKA – ${order.id.toString().slice(-6)}`,
+    html,
+  })
 }
 
 export const sendPaymentReceipt = async ({ order }: { order: Order }) => {
-  const { error } = await resend.emails.send({
+  const html = await render(<PaymentReceiptEmail order={order} />)
+  await transporter.sendMail({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: order.user.email,
     subject: `Platba přijata – objednávka ${order.id.toString().slice(-6)}`,
-    react: <PaymentReceiptEmail order={order} />,
+    html,
   })
-  if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
 }
 
 export const sendPurchaseReceipt = async ({ order }: { order: Order }) => {
-  const { error } = await resend.emails.send({
+  const html = await render(<PurchaseReceiptEmail order={order} />)
+  await transporter.sendMail({
     from: `${APP_NAME} <${SENDER_EMAIL}>`,
     to: order.user.email,
     subject: `Vaše objednávka byla odeslána – ${order.id.toString().slice(-6)}`,
-    react: <PurchaseReceiptEmail order={order} />,
+    html,
   })
-  if (error) throw new Error(`Resend chyba: ${JSON.stringify(error)}`)
 }

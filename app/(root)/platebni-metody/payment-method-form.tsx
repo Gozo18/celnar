@@ -35,7 +35,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { updateUserCheckoutMethods } from "@/lib/actions/user.actions"
 import { Card } from "@/components/ui/card"
 import { cn, formatCurrency } from "@/lib/utils"
-import ShippingNotice from "@/components/shared/shipping-notice"
+/* import ShippingNotice from "@/components/shared/shipping-notice" */
 
 const PAYMENT_METHOD_META: Record<
   string,
@@ -296,7 +296,7 @@ const PaymentMethodForm = ({
         </Form>
       </Card>
 
-      <ShippingNotice />
+      {/* <ShippingNotice /> */}
     </div>
   )
 }

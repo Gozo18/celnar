@@ -107,7 +107,7 @@ export default function OrderReceivedEmail({ order }: OrderReceivedProps) {
                 Vinařství Celnar
               </Text>
               <Text className="text-sm m-0 mt-1">
-                Vaše oblíbené vinařství z Pavlova
+                Vaše oblíbené vinařství z Vranovic
               </Text>
             </Section>
 
@@ -132,8 +132,8 @@ export default function OrderReceivedEmail({ order }: OrderReceivedProps) {
                   Platební instrukce
                 </Text>
                 <Text className="m-0 text-sm text-gray-700">
-                  Prosíme o úhradu objednávky bankovním převodem na náš účet.
-                  Po připsání platby Vaši objednávku začneme připravovat.
+                  Prosíme o úhradu objednávky bankovním převodem na náš účet. Po
+                  připsání platby Vaši objednávku začneme připravovat.
                 </Text>
                 <Row className="mt-3">
                   <Column>

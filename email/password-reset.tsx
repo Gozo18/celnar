@@ -46,7 +46,7 @@ export default function PasswordResetEmail({
                 Vinařství Celnar
               </Text>
               <Text className="text-sm m-0 mt-1">
-                Vaše oblíbené vinařství z Pavlova
+                Vaše oblíbené vinařství z Vranovic
               </Text>
             </Section>
 
